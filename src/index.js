@@ -7,9 +7,13 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import Routes from "./components/Routes";
 import reducers from './reducers';
+import axios from "axios";
 // import { renderRoutes } from "react-router-config";
 
-const store = createStore(reducers, window.INITIAL_STATE, applyMiddleware(thunk));
+const axiosInstance = axios.create({
+    baseURL: '/api',
+});
+const store = createStore(reducers, window.INITIAL_STATE, applyMiddleware(thunk.withExtraArgument(axiosInstance)));
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
